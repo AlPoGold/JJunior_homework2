@@ -6,6 +6,8 @@ public class TestClass {
     public static void main(String[] args) {
         TestRunner.run(TestClass.class);
 
+
+        //  Попытка создать Asserter
         int expected = 11;
         int actual = sum(5,8);
         try{
@@ -63,6 +65,11 @@ public class TestClass {
     @BeforeEach
     void beforeEach(){
         System.out.println("before each");
+    }
+
+    @Test
+    void failTest(){
+        throw new RuntimeException();
     }
 
     static int sum(int a, int b){

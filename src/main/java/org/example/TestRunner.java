@@ -47,6 +47,8 @@ public class TestRunner {
 
     private static Map<Integer, List<Method>> getOrderedListOfMethods(Method[] methods) {
         Map<Integer, List<Method>> orderedMethods = new TreeMap<>();
+
+        //ordering test methods
         for (Method method : methods) {
             if (method.isAnnotationPresent(Test.class)) {
                 int order = method.getAnnotation(Test.class).order();
@@ -57,8 +59,7 @@ public class TestRunner {
             }
         }
 
-        orderedMethods.forEach((key, value) -> System.out.println(key +" "+ value));
-
+        // adding before each
         for(Method method:methods) {
 
             if (method.isAnnotationPresent(BeforeEach.class)) {
@@ -70,6 +71,8 @@ public class TestRunner {
                 }
             }
         }
+
+        //adding after each
         for(Method method:methods) {
             if (method.isAnnotationPresent(AfterEach.class)) {
                 for (Integer order: orderedMethods.keySet()) {
@@ -86,7 +89,7 @@ public class TestRunner {
             }
         }
 
-
+//adding before all and after all
         for(Method method : methods){
             if(method.isAnnotationPresent(BeforeAll.class)){
                 orderedMethods.put(-1, new ArrayList<>());
